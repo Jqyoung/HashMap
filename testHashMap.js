@@ -1,4 +1,4 @@
-import { HashMap } from "./HashMap.js";
+import { HashMap } from "./hashMap.js";
 import util from "util";
 
 // for testing rehash and expand

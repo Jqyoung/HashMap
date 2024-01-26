@@ -1,4 +1,4 @@
-import { HashSet } from "./HashSet.js";
+import { HashSet } from "./hashSet.js";
 import util from "util";
 
 // for testing rehash and expand
