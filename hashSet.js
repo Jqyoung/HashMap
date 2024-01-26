@@ -15,6 +15,7 @@ class HashSet {
     const primeNumber = 31;
 
     for (let i = 0; i < key.length; i++) {
+      // according to another TOP learner, taking modulo each step is the same as taking it at the end
       hashCode = (primeNumber * hashCode + key.charCodeAt(i)) % this.capacity;
     }
 
