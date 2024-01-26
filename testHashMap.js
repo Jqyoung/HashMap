@@ -54,12 +54,12 @@ for (const key in testData) {
 }
 hashMap.set("remove", 404);
 
+// display all elements in the hashMap
 hashMap.buckets.forEach((bucket) => {
   console.log(util.inspect(bucket, false, null, true));
   console.log(bucket.size());
 });
-
-console.log(hashMap.buckets);
+console.log(util.inspect(hashMap.buckets, false, null, true));
 
 console.log("test set() for replacing repeated key");
 hashMap.set("a", 100);

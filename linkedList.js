@@ -16,8 +16,11 @@ export default class LinkedList {
   update(key, value) {
     let temp = this.head;
     while (temp !== null) {
-      if (Object.keys(temp.value)[0] == key) {
+      if (typeof temp.value === "object" && Object.keys(temp.value)[0] == key) {
         temp.value[key] = value;
+        return;
+      } else if (temp.value === key) {
+        temp.value = key;
         return;
       }
       temp = temp.next;
@@ -29,8 +32,10 @@ export default class LinkedList {
   find(key) {
     let temp = this.head;
     while (temp !== null) {
-      if (Object.keys(temp.value)[0] == key) {
+      if (typeof temp.value === "object" && Object.keys(temp.value)[0] == key) {
         return temp.value[key];
+      } else if (temp.value === key) {
+        return temp.value;
       }
       temp = temp.next;
     }
@@ -42,7 +47,7 @@ export default class LinkedList {
       return false;
     }
 
-    if (Object.keys(pointer.value)[0] == key) {
+    if (Object.keys(pointer.value)[0] == key || pointer.value === key) {
       return true;
     }
 
@@ -54,7 +59,7 @@ export default class LinkedList {
       return false;
     }
 
-    if (Object.keys(cur.value)[0] == key) {
+    if (Object.keys(cur.value)[0] == key || cur.value === key) {
       if (prev !== null) {
         cur = cur.next;
         prev.next = cur;
@@ -80,7 +85,12 @@ export default class LinkedList {
     if (pointer === null) {
       return arr;
     }
-    key = Object.keys(pointer.value)[0];
+
+    if (typeof pointer.value === "object") {
+      key = Object.keys(pointer.value)[0];
+    } else {
+      key = pointer.value;
+    }
     arr.push(key);
     return this.getKeys(pointer.next, arr);
   }

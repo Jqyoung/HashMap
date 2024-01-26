@@ -1,4 +1,4 @@
-import LinkedList from "./linkedList";
+import LinkedList from "./linkedList.js";
 
 class HashSet {
   constructor() {
@@ -21,33 +21,33 @@ class HashSet {
     return hashCode;
   }
 
-  expand(key, value) {
-    const data = this.entries();
+  expand(key) {
+    const data = this.keys();
     this.capacity *= 2;
     this.threshHold = this.capacity * this.loadFactor;
     this.buckets = new Array(this.capacity);
     this.filledBucket = 0;
 
-    this.set(key, value);
+    this.set(key);
     data.forEach((element) => {
-      this.set(element[0], element[1]);
+      this.set(element);
     });
   }
 
-  set(key, value) {
+  set(key) {
     // rehash and put the keys in the new bucket
     if (this.filledBucket > this.threshHold) {
-      this.expand(key, value);
+      this.expand(key);
     }
 
     let index = this.hash(key);
 
     if (!this.buckets[index]) {
       this.buckets[index] = new LinkedList();
-      this.buckets[index].append({ [key]: value });
+      this.buckets[index].append(key);
       this.filledBucket++;
     } else {
-      this.buckets[index].update(key, value);
+      this.buckets[index].update(key);
     }
   }
 
@@ -112,27 +112,6 @@ class HashSet {
       index++;
     }
     return keys;
-  }
-
-  values() {
-    let values = [];
-    for (let i = 0; i < this.capacity; i++) {
-      if (this.buckets[i]) {
-        values = values.concat(this.buckets[i].getValues());
-      }
-    }
-    return values;
-  }
-
-  entries(index = 0, arr = []) {
-    if (index === this.capacity) {
-      return arr;
-    }
-
-    if (this.buckets[index]) {
-      arr.push(this.buckets[index].getEntries());
-    }
-    return this.entries(index + 1, arr);
   }
 }
 
